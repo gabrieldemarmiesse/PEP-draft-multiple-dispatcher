@@ -26,6 +26,8 @@ This has the unintended consequence of making it difficult for multiple-dispatch
 Motivation
 ==========
 
+While multiple dispatch and overloading are two different concept, it could be possible to bring them together.
+
 Consider an example from the Mypy documentation::
 
   from typing import Union, overload
@@ -59,6 +61,14 @@ A novice or someone transitioning from languages like C++ or Julia might find th
 While it might be to complicated for Python or the standard library to find the right function to call depending
 on the argument types at runtime, it is possible for third-party libraries to tackle the issue (see reference implementation section).
 
+Interest in multiple dispatch has been there since the early days of Python. Over the years, many implementation appeared, proving 
+that the community liked and wish for this pattern to be possible:
+
+* https://peps.python.org/pep-0443/
+* https://github.com/mrocklin/multipledispatch/
+* https://github.com/coady/multimethod
+* https://github.com/beartype/plum
+
 Rationale
 =========
 
@@ -71,7 +81,7 @@ Specification
 This PEP proposes the introduction of a new ``multiple_dispatcher`` decorator within the ``typing`` module.
 While it will have no runtime effect, type-checkers will recognize it as a marker indicating the application of a multiple
 dispatch mechanism. Any function decorated with ``@typing.multiple_dispatcher`` will be 
-expected create another decorator that adheres to the
+expected decorate another function that adheres to the
 PEP 484 conventions concerning ``@typing.overload``.
 
 An illustrative example is provided below::

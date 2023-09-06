@@ -18,7 +18,7 @@ Resolution: <url>
 Abstract
 ========
 
-PEP 484 defines the ``@typing.overload decorator``, which allows a type checker to understand all possible signatures for a function.
+PEP 484 defines the ``@typing.overload`` decorator, which allows a type checker to understand all possible signatures for a function.
 Since ``typing`` decorators are no-ops at runtime, the actual function's logic must stays within the last, non-decorated function declaration
 to be compliant with type checkers.
 This has the unintended consequence of making it difficult for multiple-dispatch libraries to integrate seamlessly with static type checkers.
@@ -68,9 +68,10 @@ Rationale
 Specification
 =============
 
-This PEP proposes the introduction of a new multiple_dispatcher decorator within the typing module.
+This PEP proposes the introduction of a new ``multiple_dispatcher`` decorator within the ``typing`` module.
 While it will have no runtime effect, type-checkers will recognize it as a marker indicating the application of a multiple
-dispatch mechanism. Any function decorated with multiple_dispatcher will be expected to adhere to the
+dispatch mechanism. Any function decorated with ``@typing.multiple_dispatcher`` will be 
+expected create another decorator that adheres to the
 PEP 484 conventions concerning ``@typing.overload``.
 
 An illustrative example is provided below::
@@ -82,6 +83,7 @@ An illustrative example is provided below::
 
   @multiple_dispatcher
   def some_multiple_dispatch_mechanism(func: Callable[P, T]) -> Callable[P, T]:
+      """This function will very likely be declared in a Python package"""
       def wrapper(*args: P.args, **kwargs: P.kwargs) -> T:
           for overloaded_func in get_overload(func):
               if args_kwargs_are_matching_the_overload(args, kwargs, overloaded_func):
@@ -102,17 +104,16 @@ An illustrative example is provided below::
   def mouse_event(x1, y1, x2=None, y2=None):
       ...
 
-Upon detecting the some_multiple_dispatch_mechanism decorator, type-checkers should infer that functions decorated with @overload will be executed following the PEP 484 rules for signature resolution. Consequently:
+Upon detecting the ``some_multiple_dispatch_mechanism`` decorator, type-checkers should infer that functions decorated with ``@overload`` will be executed following the PEP 484 rules for signature resolution. Consequently:
 
 The body of functions decorated with ``@overload`` should not be empty.
-The final function's body, typically containing the logic in the traditional overload mechanism, should be empty.
+The final function's body, typically containing the logic in the traditional overload mechanism before this PEP, should be empty.
 Using ``...`` or a simple ``raise NotImplementedError`` would suffice.
 
 Backwards Compatibility
 =======================
 
-This PEP is backward compatible and has no influence on any existing working code.
-
+This PEP is backward compatible and has no influence on any existing working code, since the behavior of Python and the type-checkers does not change without the ``@multiple_dispatcher`` decorator.
 
 Security Implications
 =====================

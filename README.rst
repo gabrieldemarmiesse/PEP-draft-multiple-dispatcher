@@ -192,7 +192,7 @@ We could rename the decorator. ``multiple_dispatcher`` is good but the name can 
 Footnotes
 =========
 
-[A collection of footnotes cited in the PEP, and a place to list non-inline hyperlink targets.]
+Many thanks for Michael Chow, Wessel Bruinsma and Nicolas Tessore for providing awesome ideas!
 
 
 Copyright

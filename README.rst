@@ -68,6 +68,8 @@ that the community liked and wish for this pattern to be possible:
 * https://github.com/mrocklin/multipledispatch/
 * https://github.com/coady/multimethod
 * https://github.com/beartype/plum
+* https://github.com/erezsh/runtype
+* https://github.com/gabrieldemarmiesse/overtake
 
 Rationale
 =========

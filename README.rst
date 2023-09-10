@@ -24,7 +24,8 @@ to be compliant with type checkers.
 This has the unintended consequence of making it difficult for multiple-dispatch libraries leveraging ``@typing.overload`` to integrate seamlessly with static type checkers.
 
 This PEP proposes a new decorator, being no-op at runtime: ``@typing.multiple_dispatcher`` that informs type-checkers that we are working
-with a multiple dispatch library. The library must respect the signature resolution rules defined in :pep:`484`.
+with a multiple dispatch library. The library must respect the signature resolution rules of ``typing.overload``. Such rules can be found
+in the Mypy documentation: https://mypy.readthedocs.io/en/stable/more_types.html#type-checking-calls-to-overloads
 
 Motivation
 ==========
@@ -147,7 +148,8 @@ The decorator can then be used by end users, and will be understood by type-chec
   def mouse_event(x1, y1, x2=None, y2=None):
       raise NotImplementedError  # type checkers are ok with the body being empty
 
-Upon detecting the ``some_multiple_dispatch_mechanism`` decorator, type-checkers should understand that functions decorated with ``@overload`` will be executed following the :pep:`484` rules for signature resolution.
+Upon detecting the ``some_multiple_dispatch_mechanism`` decorator, type-checkers should understand that functions decorated with ``@overload`` will be executed following the rules for signature resolution.
+Those rules can be found in the Mypy documentation: https://mypy.readthedocs.io/en/stable/more_types.html#type-checking-calls-to-overloads since :pep:`484` doesn't provide them.
 Consequently:
 
 The body of functions decorated with ``@overload`` should not be empty.

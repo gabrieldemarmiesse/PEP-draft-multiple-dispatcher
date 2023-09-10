@@ -21,8 +21,8 @@ Abstract
 :pep:`484` defines the ``@typing.overload`` decorator, which allows a type checker to understand all possible signatures for a function.
 Since ``typing`` decorators are no-ops at runtime, the actual function's logic must stays within the last, non-decorated function declaration
 to be compliant with type checkers.
-This has the unintended consequence of making it difficult for multiple-dispatch libraries leveraging `@typing.overload` to integrate seamlessly with static type checkers.
-This PEP proposes a new decorator, being no-op at runtime: `@typing.multiple_dispatcher` that informs type-checkers that we are working
+This has the unintended consequence of making it difficult for multiple-dispatch libraries leveraging ``@typing.overload`` to integrate seamlessly with static type checkers.
+This PEP proposes a new decorator, being no-op at runtime: ``@typing.multiple_dispatcher`` that informs type-checkers that we are working
 with a multiple dispatch library. The library must respect the signature resolution rules defined in :pep:`484`.
 
 Motivation
@@ -86,7 +86,7 @@ One of those rules, that is causing us issues here is the following::
   > the latter is used at runtime but should be ignored by a type checker.
   > At runtime, calling a @overload-decorated function directly will raise NotImplementedError.
 
-While `typing.get_overloads()` freed us from those constraints at runtime, static type-checkers still work with this assumption.
+While ``typing.get_overloads()`` freed us from those constraints at runtime, static type-checkers still work with this assumption.
 
 Rationale
 =========
@@ -97,7 +97,7 @@ We can expose in this section a list of requirements that we want to satisfy wit
 #. This mechanism should be invisible and automatic to multiple-dispatch libraries' users.
 #. The change should be backward compatible.
 #. The change should have no run-time effect.
-#. This mechanism shouldn't be configurable, because the `@typing.overload` is not configurable.
+#. This mechanism shouldn't be configurable, because the ``@typing.overload`` is not configurable.
 
 The next section "Specification" gives a new change in the language that respects those requirements.
 

@@ -22,6 +22,7 @@ Abstract
 Since ``typing`` decorators are no-ops at runtime, the actual function's logic must stays within the last, non-decorated function declaration
 to be compliant with type checkers.
 This has the unintended consequence of making it difficult for multiple-dispatch libraries leveraging ``@typing.overload`` to integrate seamlessly with static type checkers.
+
 This PEP proposes a new decorator, being no-op at runtime: ``@typing.multiple_dispatcher`` that informs type-checkers that we are working
 with a multiple dispatch library. The library must respect the signature resolution rules defined in :pep:`484`.
 
